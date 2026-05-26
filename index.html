@@ -1,1383 +1,165 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Good First Issues Report - 2026-05-18</title>
-    <style>
-        * { box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-        .header h1 {
-            margin: 0 0 10px 0;
-            font-size: 28px;
-        }
-        .header p {
-            margin: 0;
-            opacity: 0.9;
-        }
-        .summary {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-        .summary-card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            flex: 1;
-            min-width: 120px;
-            text-align: center;
-        }
-        .summary-card .number {
-            font-size: 36px;
-            font-weight: bold;
-            color: #667eea;
-        }
-        .summary-card .label {
-            color: #666;
-            font-size: 14px;
-        }
-        .section {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .section h2 {
-            margin-top: 0;
-            color: #667eea;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th {
-            background: #667eea;
-            color: white;
-            padding: 12px 10px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 13px;
-        }
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-            font-size: 13px;
-            vertical-align: top;
-        }
-        tr:hover {
-            background-color: #f8f9fa;
-        }
-        .issue-link {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .issue-link:hover {
-            text-decoration: underline;
-        }
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            color: white;
-        }
-        .reason {
-            color: #666;
-            font-size: 12px;
-            max-width: 400px;
-        }
-        .pr-list {
-            font-size: 11px;
-            color: #666;
-        }
-        .pr-merged { color: #28a745; }
-        .pr-open { color: #0366d6; }
-        .pr-closed { color: #cb2431; }
-        footer {
-            text-align: center;
-            color: #666;
-            font-size: 13px;
-            margin-top: 30px;
-            padding: 20px;
-        }
-        footer a {
-            color: #667eea;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenVINO Good First Issues Report</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+    header h1 { margin: 0 0 10px 0; font-size: 28px; }
+    header p { margin: 0; opacity: 0.9; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .summary-card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .summary-card .number {
+      font-size: 36px;
+      font-weight: bold;
+    }
+    .status-total .number { color: #667eea; }
+    .status-unassign .number { color: #FFA500; }
+    .status-waiting .number { color: #4169E1; }
+    .status-review .number { color: #32CD32; }
+    .status-close .number { color: #DC143C; }
+    section {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    section h2 {
+      margin-top: 0;
+      color: #667eea;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th {
+      background: #667eea;
+      color: white;
+      padding: 12px 10px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 13px;
+    }
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      font-size: 13px;
+      vertical-align: top;
+    }
+    tr:hover { background-color: #f8f9fa; }
+    .issue-link {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .issue-link:hover { text-decoration: underline; }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      color: white;
+    }
+    .badge-assign { background-color: #FFD700; }
+    .badge-unassign { background-color: #FFA500; }
+    .reason { color: #666; font-size: 12px; max-width: 400px; }
+    .pr-list { font-size: 11px; color: #666; }
+    .pr-merged { color: #28a745; }
+    .pr-open { color: #0366d6; }
+    .pr-closed { color: #cb2431; }
+    footer {
+      text-align: center;
+      color: #666;
+      font-size: 13px;
+      margin-top: 30px;
+      padding: 20px;
+    }
+    footer a { color: #667eea; }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🚀 OpenVINO Good First Issues Report</h1>
-        <p>Generated: 2026-05-18 13:44 UTC | Total Issues: 112</p>
+  <header>
+    <h1>🚀 OpenVINO Good First Issues Report</h1>
+    <p>Generated: 2026-05-18 13:44 UTC | Total Issues: 112</p>
+  </header>
+
+  <div class="summary">
+    <div class="summary-card status-total">
+      <div class="number">112</div>
+      <div class="label">Total Issues</div>
     </div>
-    
-    <div class="summary">
-        <div class="summary-card">
-            <div class="number">112</div>
-            <div class="label">Total Issues</div>
-        </div>
-        <div class="summary-card">
-            <div class="number" style="color: #FFA500">79</div>
-            <div class="label">Need Unassign</div>
-        </div>
-        <div class="summary-card">
-            <div class="number" style="color: #4169E1">3</div>
-            <div class="label">Waiting</div>
-        </div>
-        <div class="summary-card">
-            <div class="number" style="color: #32CD32">16</div>
-            <div class="label">In Review</div>
-        </div>
-        <div class="summary-card">
-            <div class="number" style="color: #DC143C">1</div>
-            <div class="label">Close</div>
-        </div>
+    <div class="summary-card status-unassign">
+      <div class="number">79</div>
+      <div class="label">Need Unassign</div>
     </div>
-    
-    
-    <div class="section">
-        <h2>🟡 Assignment Requested (10)</h2>
-        <table>
-            <tr>
-                <th style="width: 60px">Issue</th>
-                <th>Title</th>
-                <th style="width: 120px">Assignee</th>
-                <th style="width: 80px">Days</th>
-                <th style="width: 80px">Action</th>
-                <th>Reason</th>
-                <th style="width: 150px">Linked PRs</th>
-            </tr>
-            
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29726" class="issue-link">#29726</a></td>
-                <td>[Good First Issue]: Support prim::unchecked_cast</td>
-                <td>KarSri7694</td>
-                <td>85</td>
-                <td><span class="badge" style="background-color: #FFD700">Assign Requested</span></td>
-                <td class="reason">'Beeram12 requested assignment on 2026-02-21 18:21 UTC: 'Hey it looks like nobody is working on this issue for long can I pick this task.'</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/22754" class="issue-link">#22754</a></td>
-                <td>[Good First Issue]: [OP CONFORMANCE][TEMPLATE] One Reduce op...</td>
-                <td>Palakb273</td>
-                <td>60</td>
-                <td><span class="badge" style="background-color: #FFD700">Assign Requested</span></td>
-                <td class="reason">Vaibhav-Upadhyaya-codes requested assignment on 2026-03-18 13:46 UTC: 'Hi, I’m new to OpenVINO and open-source contribution. I’d like to work on this issue if it’s still available.'</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29688" class="issue-link">#29688</a></td>
-                <td>[Good First Issue]: aten::_transformer_encoder_layer_fwd</td>
-                <td>PT-10</td>
-                <td>55</td>
-                <td><span class="badge" style="background-color: #FFD700">Assign Requested</span></td>
-                <td class="reason">Sahilbhatane requested assignment on 2026-03-23 15:44 UTC: 'Hey @p-wysocki or @mlukasze can i work on this issue? @PT-10 if you are still working on this then please let me know. thanks.'</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29722" class="issue-link">#29722</a></td>
-                <td>[Good First Issue]: Support prim::is_nested</td>
-                <td>jflam1301</td>
-                <td>55</td>
-                <td><span class="badge" style="background-color: #FFD700">Assign Requested</span></td>
-                <td class="reason">@Sahilbhatane requested assignment on 2026-03-23 15:41 UTC: 'hey @mlukasze or @p-wysocki can I work on this issue?'</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29694" class="issue-link">#29694</a></td>
-                <td>[Good First Issue]: Support aten::find</td>
-                <td>Ratish1</td>
-                <td>52</td>
-                <td><span class="badge" style="background-color: #FFD700">Assign Requested</span></td>
-                <td class="reason">khevana08 requested assignment on 2026-03-27 10:49 UTC: 'Hi, I would like to work on this issue. Can you assign it to me?'</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/33116" class="issue-link">#33116</a></td>
-                <td>[Good First Issue]: Improve logging for OpenVINO torch.compi...</td>
-                <td>AwkJay</td>
-                <td>48</td>
-                <td><span class="badge" style="background-color: #FFD700">Assign Requested</span></td>
-                <td class="reason">victorchanda345-tech requested assignment on 2026-03-30 19:31 UTC: 'Hi, I am a beginner contributor and interested in working on this issue. I would like to improve the logging for torch.compile feature. Could you please guide me on where to start or assign this is...'</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29693" class="issue-link">#29693</a></td>
-                <td>[Good First Issue]: Support aten::extend</td>
-                <td>BlackRuffians</td>
-                <td>46</td>
-                <td><span class="badge" style="background-color: #FFD700">Assign Requested</span></td>
-                <td class="reason">'zjhmax777' requested assignment on 2026-04-02 12:35 UTC: 'Hi @BlackRuffians Are you still work on this issue ? I want take it, thanks.'</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/26573" class="issue-link">#26573</a></td>
-                <td>[Good First Issue][JAX FE]: Support jax.lax.scatter operatio...</td>
-                <td>geeky33</td>
-                <td>37</td>
-                <td><span class="badge" style="background-color: #FFD700">Assign Requested</span></td>
-                <td class="reason">@zjhmax777 requested assignment on 2026-04-10 17:19 UTC: 'hi @geeky33 are you still work this issue ? i want take this, thanks a lot!'</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29720" class="issue-link">#29720</a></td>
-                <td>[Good First Issue]: Support prim::CallMethod</td>
-                <td>—</td>
-                <td>22</td>
-                <td><span class="badge" style="background-color: #FFD700">Assign Requested</span></td>
-                <td class="reason">goyaladitya05 requested assignment on 2026-04-25 18:41 UTC: '.release'</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/28707" class="issue-link">#28707</a></td>
-                <td>[Good First Issue]: Support aten::Delete aten::str aten::tak...</td>
-                <td>—</td>
-                <td>13</td>
-                <td><span class="badge" style="background-color: #FFD700">Assign Requested</span></td>
-                <td class="reason">cs25mtech12013-commits requested assignment on 2026-05-05 09:24 UTC: 'I'd like to work on this, is it still available?'</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-        </table>
+    <div class="summary-card status-waiting">
+      <div class="number">3</div>
+      <div class="label">Waiting</div>
     </div>
-
-    <div class="section">
-        <h2>⚠️ Needs Unassignment (79)</h2>
-        <table>
-            <tr>
-                <th style="width: 60px">Issue</th>
-                <th>Title</th>
-                <th style="width: 120px">Assignee</th>
-                <th style="width: 80px">Days</th>
-                <th style="width: 80px">Action</th>
-                <th>Reason</th>
-                <th style="width: 150px">Linked PRs</th>
-            </tr>
-            
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29704" class="issue-link">#29704</a></td>
-                <td>[Good First Issue]: Support aten::linalg_multi_dot</td>
-                <td>TamiShaks-2</td>
-                <td>203</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">TamiShaks-2 requested assignment on 2025-10-27 10:54 UTC: '.take'. No further activity from the assignee for 203 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/30244" class="issue-link">#30244</a></td>
-                <td>[Good First Issue] [RISCV64]: Implement CPU plugin just-in-t...</td>
-                <td>Naseer-010</td>
-                <td>165</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Naseer-010 requested assignment on 2025-11-18 and last activity was on 2025-12-03, which is 165 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29686" class="issue-link">#29686</a></td>
-                <td>[Good First Issue]: Support aten::_standard_gamma</td>
-                <td>saquibjawedbit</td>
-                <td>162</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">saquibjawedbit requested assignment on 2025-12-06 17:27 UTC: '.take'. No further activity from the assignee in 162 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29683" class="issue-link">#29683</a></td>
-                <td>[Good First Issue]: Support aten::_fake_quantize_learnable_p...</td>
-                <td>Yash-Vijay29</td>
-                <td>153</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Yash-Vijay29 requested assignment on 2025-12-16 12:48 UTC: '.take'. No further activity from the assignee in 153 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/20534" class="issue-link">#20534</a></td>
-                <td>[Good First Issue][TF FE]: Support Case operation for Tensor...</td>
-                <td>ChrisAB</td>
-                <td>153</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">ChrisAB was assigned on 2025-11-09 21:08 UTC but has had no activity since 2025-12-15 19:01 UTC, which is over 7 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29632" class="issue-link">#29632</a></td>
-                <td>[Good First Issue]: Support aten::smooth_l1_loss</td>
-                <td>LuisOfL</td>
-                <td>153</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">LuisOfL requested assignment on 2025-12-15 16:23 UTC: '.take'. No further activity from LuisOfL in 153 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29651" class="issue-link">#29651</a></td>
-                <td>[Good First Issue]: support aten::tensordot</td>
-                <td>Yash-Vijay29</td>
-                <td>147</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Yash-Vijay29 requested assignment on 2025-03-24, 2025-03-31, 2025-04-10, and 2025-12-22 but there has been no activity from the assignee in 147 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/26991" class="issue-link">#26991</a></td>
-                <td>[Good First Issue]: Introduce testing on Android in GitHub A...</td>
-                <td>devesh-047</td>
-                <td>134</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">devesh-047 requested assignment on 2026-01-04 06:34 UTC: '.take'. No further activity from assignee in 134 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29734" class="issue-link">#29734</a></td>
-                <td>[Good First Issue]: Support torch_scatter::segment_mean_csr</td>
-                <td>Nishant-ZFYII</td>
-                <td>130</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Nishant-ZFYII was assigned on 2025-12-29 13:24 UTC but there has been no activity from the assignee for 130 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29717" class="issue-link">#29717</a></td>
-                <td>[Good First Issue]: Support aten::unique_consecutive</td>
-                <td>itsgnex</td>
-                <td>129</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">itsgnex requested assignment on 2026-01-06: 'Thanks! I’ll start by reviewing the parent issue and contribution guide.' and last activity was on 2026-01-08, which is 129 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29723" class="issue-link">#29723</a></td>
-                <td>[Good First Issue]: Support prim::isinstance</td>
-                <td>andersendsa</td>
-                <td>127</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">andersendsa was assigned on 2026-01-10 14:04 UTC and there has been no activity from the assignee for 127 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/22753" class="issue-link">#22753</a></td>
-                <td>[Good First Issue]: [OP CONFORMANCE][TEMPLATE] One Multiply ...</td>
-                <td>Palakb273</td>
-                <td>125</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Palakb273 requested assignment on 2026-01-12: 'thank you so much for assigning please review once and let me know if any required would be thankful for your time on this'. No activity from Palakb273 since then, and the issue remains unassigned.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29731" class="issue-link">#29731</a></td>
-                <td>[Good First Issue]: Support quantized::conv2d_prepack</td>
-                <td>karyxx</td>
-                <td>122</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">karyxx was assigned on 2026-01-15 05:33 UTC but there has been no activity from the assignee for 122 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29732" class="issue-link">#29732</a></td>
-                <td>[Good First Issue]: Support quantized::linear_dynamic</td>
-                <td>karankulshrestha</td>
-                <td>122</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">karankulshrestha was assigned on 2026-01-07 22:25 UTC but there has been no activity from the assignee for 122 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29697" class="issue-link">#29697</a></td>
-                <td>[Good First Issue]: Support aten::get</td>
-                <td>cp-qwq</td>
-                <td>121</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">cp-qwq requested assignment on 2026-01-17: '.take'. No activity from assignee for 121 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/20553" class="issue-link">#20553</a></td>
-                <td>[Good First Issue]: Align behavior of ONNX Frontend operator...</td>
-                <td>tani125</td>
-                <td>120</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">tani125 requested assignment on 2026-01-17 17:58 UTC: '.take'. There has been no activity from the assignee for 120 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29705" class="issue-link">#29705</a></td>
-                <td>[Good First Issue]: Support aten::lstm_cell</td>
-                <td>lootag</td>
-                <td>120</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">lootag requested assignment on 2025-12-27 23:43 UTC: '.take'. No further activity from assignee in 120 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29698" class="issue-link">#29698</a></td>
-                <td>[Good First Issue]: Support aten::grad</td>
-                <td>ErasmeT</td>
-                <td>118</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">ErasmeT requested assignment on 2026-01-19 14:11 UTC: '.take'. No activity from assignee since then.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/23248" class="issue-link">#23248</a></td>
-                <td>[Good First Issue][TF FE]: Support MatrixDiagV3 operation fo...</td>
-                <td>mrinalchaturvedi27</td>
-                <td>117</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">mrinalchaturvedi27 was assigned on 2026-01-21 11:00 UTC and there has been no activity since then, indicating the issue may have been abandoned.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29706" class="issue-link">#29706</a></td>
-                <td>[Good First Issue]: Support aten::max_unpool2d</td>
-                <td>Raakshass</td>
-                <td>117</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Raakshass requested assignment on 2026-01-20 13:42 UTC: '.take'. No further activity from the assignee in 117 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29713" class="issue-link">#29713</a></td>
-                <td>[Good First Issue]: Support aten::reverse</td>
-                <td>Ahmed-Zahran02</td>
-                <td>116</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Ahmed-Zahran02 was assigned on 2024-02-22 and has had no activity since 2026-01-22, which is more than 7 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29689" class="issue-link">#29689</a></td>
-                <td>[Good First Issue]: Support aten::affine_grid_generator</td>
-                <td>Raakshass</td>
-                <td>114</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Raakshass requested assignment on 2026-01-23 16:33 UTC: '.take'. No activity from assignee for 114 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/33601" class="issue-link">#33601</a></td>
-                <td>[Good First Issue]: Improve implementation of Node.js API Co...</td>
-                <td>Nishant-ZFYII</td>
-                <td>113</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Nishant-ZFYII was assigned on 2026-01-14 but there has been no activity from the assignee for 113 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/28902" class="issue-link">#28902</a></td>
-                <td>[Good First Issue]: Support aten::ravel operation</td>
-                <td>Nishant-ZFYII</td>
-                <td>112</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Nishant-ZFYII requested assignment on 2026-01-26 09:59 UTC: '.take'. No further activity from the assignee since then.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29703" class="issue-link">#29703</a></td>
-                <td>[Good First Issue]: Support aten::linalg_det</td>
-                <td>Nishant-ZFYII</td>
-                <td>112</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Nishant-ZFYII was assigned on 2025-10-04 but has had no activity since 2026-01-26, which is more than 7 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29690" class="issue-link">#29690</a></td>
-                <td>[Good First Issue]: Support aten::binary_cross_entropy_with_...</td>
-                <td>Nishant-ZFYII</td>
-                <td>112</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Nishant-ZFYII was assigned on 2025-03-25 but has had no activity since 2026-01-26, which is more than 7 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29655" class="issue-link">#29655</a></td>
-                <td>[Good First Issue]: Enabling aten:reverse functionality</td>
-                <td>Raakshass</td>
-                <td>109</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Raakshass requested assignment on 2026-01-28: '.take'. There has been no activity from the assignee for 109 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29342" class="issue-link">#29342</a></td>
-                <td>[Good First Issue]: Support prim::is_nested, prim::tolist</td>
-                <td>VaishnaviOnPC</td>
-                <td>109</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">VaishnaviOnPC requested assignment on 2026-01-28 19:40 UTC: '.take'. No further activity from the assignee since then.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29727" class="issue-link">#29727</a></td>
-                <td>[Good First Issue]: Support prim::Uninitialized</td>
-                <td>Sujanian1304</td>
-                <td>107</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Sujanian1304 requested assignment on 2026-01-30: 'Can you review this pr?'. The issue has been assigned but there has been no activity from the assignee for 107 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/26575" class="issue-link">#26575</a></td>
-                <td>[Good First Issue][JAX FE]: Support jax.lax.gather operation...</td>
-                <td>jaweed3</td>
-                <td>104</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">jaweed3 requested assignment on 2026-02-02 17:00 UTC: '.take'. No further activity from assignee in 104 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/23004" class="issue-link">#23004</a></td>
-                <td>[Good First Issue]: Implement PostProcess "mean/scale" opera...</td>
-                <td>corepacket</td>
-                <td>104</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">The issue has been assigned but there has been no activity from the assignee for 104 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/21175" class="issue-link">#21175</a></td>
-                <td>[Bug]: Dimension of data input shape along 'axis': 7 must be...</td>
-                <td>geeky33</td>
-                <td>104</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">geeky33 requested assignment on 2026-02-02 18:52 UTC: '.take'. There has been no activity from the assignee since then.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/20564" class="issue-link">#20564</a></td>
-                <td>[Good First Issue]: Align behavior of ONNX Frontend function...</td>
-                <td>goyaladitya05</td>
-                <td>100</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">goyaladitya05 requested assignment on 2026-02-07: 'Hey @mlukasze, I’m working on this issue but wasn't able to tag @gkrivor on the PR. Since the issue has been open for a while, could you please let me know who is currently overseeing the ONNX Frontend.' There has been no activity from the assignee for 100 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/24996" class="issue-link">#24996</a></td>
-                <td>[Good First Issue]: Extend `PrePostProcessor` module with `C...</td>
-                <td>vsd2027</td>
-                <td>99</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">vsd2027 requested assignment on 2026-02-08 04:27 UTC: '.take'. There has been no activity from the assignee in 99 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/20879" class="issue-link">#20879</a></td>
-                <td>[Bug]: OpenVINO produced inconsistent inference results with...</td>
-                <td>SanjithSK29</td>
-                <td>98</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">SanjithSK29 requested assignment on 2025-03-05: 'ok, as we are discussing here, I will assign this ticket to you, as first. there will be more, la...'. No further activity from assignee for 98 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/23552" class="issue-link">#23552</a></td>
-                <td>[Good First Issue]: [OP CONFORMANCE][TEMPLATE] 2 Loop test a...</td>
-                <td>uvv-01</td>
-                <td>97</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">The issue is assigned but there has been no activity from the assignee (uvv-01) for 97 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/23549" class="issue-link">#23549</a></td>
-                <td>[Good First Issue]: [OP CONFORMANCE][TEMPLATE] 2 broadcast t...</td>
-                <td>GitMilind26</td>
-                <td>95</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">GitMilind26 was assigned on 2024-04-03 and has had no activity since 2026-02-11, which is more than 7 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/24254" class="issue-link">#24254</a></td>
-                <td>[Good First Issue]: GroupConvolutionBackpropData GPU SLT doe...</td>
-                <td>mostafafaheem</td>
-                <td>91</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">The issue is assigned but there has been no activity from the assignee (@mostafafaheem) for 91 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29729" class="issue-link">#29729</a></td>
-                <td>[Good First Issue]: Support quantized::conv1d</td>
-                <td>Sujanian1304</td>
-                <td>90</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Sujanian1304 was last active 90 days ago and has not shown any recent interest or activity in the issue.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/21615" class="issue-link">#21615</a></td>
-                <td>[Bug]: Port for tensor name x was not found</td>
-                <td>Rahuldrabit</td>
-                <td>87</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Rahuldrabit was last active 87 days ago with no recent activity or assignment request.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/22985" class="issue-link">#22985</a></td>
-                <td>[Good First Issue] PostProcess supports RGB->NV12 color conv...</td>
-                <td>mostafafaheem</td>
-                <td>87</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">mostafafaheem requested assignment on 2026-02-19 21:00 UTC: '.take'. There has been no activity from the assignee for 87 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29707" class="issue-link">#29707</a></td>
-                <td>[Good First Issue]: Support aten::mT</td>
-                <td>Raakshass</td>
-                <td>87</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Raakshass was assigned on 2026-01-23 17:08 UTC but there has been no activity from the assignee for 87 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29712" class="issue-link">#29712</a></td>
-                <td>[Good First Issue]: Support aten::replace</td>
-                <td>Ratish1</td>
-                <td>87</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Ratish1 requested assignment on 2025-11-17 but there has been no activity from the assignee for 87 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29680" class="issue-link">#29680</a></td>
-                <td>[Good First Issue]: Support aten::_autocast_to_full_precisio...</td>
-                <td>Shekar-77</td>
-                <td>83</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Shekar-77 was assigned on 2026-02-07 18:57 UTC but there has been no activity from the assignee for 83 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29715" class="issue-link">#29715</a></td>
-                <td>[Good First Issue]: Support aten::smooth_l1_loss</td>
-                <td>Gogeta2792</td>
-                <td>82</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Gogeta2792 requested assignment on 2025-03-26 03:11 UTC: '.take'. No further activity from the assignee for 82 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/20872" class="issue-link">#20872</a></td>
-                <td>[Bug]: inconsistent inference results between OpenVINO and O...</td>
-                <td>Rahuldrabit</td>
-                <td>81</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Rahuldrabit requested assignment on 2026-02-25 18:26 UTC: 'I have reproduced code again and here is the output below : -------------------------------------...'. No further activity from the assignee in the last 81 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29649" class="issue-link">#29649</a></td>
-                <td>[Good First Issue]: Support quantized::relu6</td>
-                <td>Rahuldrabit</td>
-                <td>81</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Rahuldrabit requested assignment on 2026-02-25 18:25 UTC: '.take'. No further activity from the assignee since then.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/21177" class="issue-link">#21177</a></td>
-                <td>[Bug]: Cannot get length of dynamic dimension</td>
-                <td>Rahuldrabit</td>
-                <td>80</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Rahuldrabit was assigned on 2026-02-20 but there has been no activity from the assignee for 80 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/23069" class="issue-link">#23069</a></td>
-                <td>[Good First Issue]: Possible Conditional Compilation Optimiz...</td>
-                <td>Nishant-ZFYII</td>
-                <td>77</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Nishant-ZFYII was assigned on 2026-02-12 19:45 UTC but there has been no activity from the assignee for 77 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/23074" class="issue-link">#23074</a></td>
-                <td>[Good First Issue]: Include HW plugin properties in supporte...</td>
-                <td>Danchi-1</td>
-                <td>75</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Danchi-1 requested assignment on 2026-01-01 but has not been assigned and there has been no activity from the assignee for 75 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29681" class="issue-link">#29681</a></td>
-                <td>[Good First Issue]: Support aten::_autocast_to_reduced_preci...</td>
-                <td>Maya-Mohamed</td>
-                <td>73</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Maya-Mohamed requested assignment on 2026-03-06 12:25 UTC: 'Hi [@mrinalchaturvedi27](https://github.com/mrinalchaturvedi27) . I was wondering if you are still working on this issue? Sure, you can go ahead :)' but the issue remains unassigned and there has been no activity from the assignee for 73 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29325" class="issue-link">#29325</a></td>
-                <td>[Good First Issue]: enable PIR format for PDPD FE</td>
-                <td>Advait2912</td>
-                <td>73</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Advait2912 was assigned the issue 73 days ago but there has been no activity from the assignee.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29682" class="issue-link">#29682</a></td>
-                <td>[Good First Issue]: Support aten::_fake_quantize_learnable_p...</td>
-                <td>PT-10</td>
-                <td>70</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">PT-10 was assigned on 2026-01-25 06:38 UTC but there has been no activity since then (70 days).</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/23249" class="issue-link">#23249</a></td>
-                <td>[Good First Issue][TF FE]: Support MatrixSetDiagV3 operation...</td>
-                <td>Sujanian1304</td>
-                <td>69</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Sujanian1304 was assigned on 2026-01-30 19:49 UTC but there has been no activity from them for 69 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/30911" class="issue-link">#30911</a></td>
-                <td>[Feature Request]: Support for PP-OCRv5's New Model Format (...</td>
-                <td>VaishnaviOnPC</td>
-                <td>62</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">VaishnaviOnPC requested assignment on 2026-03-16 19:25 UTC: 'thanks @akibjawad' and 'VaishnaviOnPC (2026-03-16 19:25 UTC): .take'. The issue has been unassigned since then with no activity from the assignee for 62 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29719" class="issue-link">#29719</a></td>
-                <td>[Good First Issue]: Support prim::CallFunction</td>
-                <td>ProfTR55</td>
-                <td>61</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">ProfTR55 was assigned on 2026-02-25 but there has been no activity from the assignee for 61 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/18347" class="issue-link">#18347</a></td>
-                <td>Extend Python API with a new `model.reshape()` overload</td>
-                <td>Jarvis2001</td>
-                <td>61</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Jarvis2001 was assigned on 2025-08-26 18:58 UTC but there has been no activity from the assignee for 61 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/22001" class="issue-link">#22001</a></td>
-                <td>[Good First Issue]: Extend C API interface</td>
-                <td>Hmm-1224</td>
-                <td>58</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Hmm-1224 requested assignment on 2026-03-21 13:20 UTC: 'Hlo @guojin-yan && @rkazants, I request you both to look at my approach. If it is going in right direction, i will start working on it..'. There has been no activity from the assignee for 58 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29687" class="issue-link">#29687</a></td>
-                <td>[Good First Issue]: Support aten::_to_copy</td>
-                <td>Nishant-ZFYII</td>
-                <td>58</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Nishant-ZFYII was assigned on 2026-01-26 05:26 UTC but there has been no activity from the assignee for 58 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/31714" class="issue-link">#31714</a></td>
-                <td>[Good First Issue]:</td>
-                <td>andersendsa</td>
-                <td>58</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">andersendsa requested assignment on 2026-01-06: 'hello i would like to work on this issue pls assign this issue to me', but there has been no activity from the assignee for 58 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/33831" class="issue-link">#33831</a></td>
-                <td>[Good First Issue]:</td>
-                <td>corepacket</td>
-                <td>57</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">corepacket requested assignment on 2026-02-05 16:56 UTC: '.take'. No activity from assignee for 57 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29724" class="issue-link">#29724</a></td>
-                <td>[Good First Issue]: Support prim::layout</td>
-                <td>Kashish564</td>
-                <td>57</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Kashish564 was assigned on 2025-12-25 09:24 UTC but there has been no activity since then, exceeding 7 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/23611" class="issue-link">#23611</a></td>
-                <td>[Good First Issue][Python API]: Create constant for string t...</td>
-                <td>KarSri7694</td>
-                <td>55</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">KarSri7694 was assigned on 2026-01-09 10:11 UTC but there has been no activity from the assignee for 55 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29341" class="issue-link">#29341</a></td>
-                <td>[Good First Issue]: Support aten::grad, aten::to_dense, aten...</td>
-                <td>Shrot101</td>
-                <td>53</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Shrot101 was assigned on 2026-01-10 03:11 UTC but there has been no activity since then, exceeding 7 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29695" class="issue-link">#29695</a></td>
-                <td>[Good First Issue]: Support aten::format</td>
-                <td>cp-qwq</td>
-                <td>53</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">cp-qwq was assigned on 2026-01-17 15:18 UTC but there has been no activity from the assignee for 53 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/17502" class="issue-link">#17502</a></td>
-                <td>Contributions Welcome</td>
-                <td>p-wysocki</td>
-                <td>52</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">p-wysocki was assigned on 2024-02-27 and there has been no activity from the assignee for 52 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/28689" class="issue-link">#28689</a></td>
-                <td>[Good First Issue]: Support aten::__contains__, aten::nan_to...</td>
-                <td>Nishant-ZFYII</td>
-                <td>52</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Nishant-ZFYII was assigned on 2026-01-05 04:55 UTC but there has been no activity from the assignee for 52 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/28744" class="issue-link">#28744</a></td>
-                <td>[Good First Issue]: Support aten::logit, aten::special_logit</td>
-                <td>Raakshass</td>
-                <td>52</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Raakshass was assigned on 2025-12-30 19:00 UTC but there has been no activity from the assignee for 52 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29716" class="issue-link">#29716</a></td>
-                <td>[Good First Issue]: Support aten::uniform_</td>
-                <td>geeky33</td>
-                <td>51</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">geeky33 requested assignment on 2026-03-27 15:29 UTC: 'hey @khevana08 , i was working on other issues which were assigned to me in other repositories i ...'. No further activity from assignee in 51 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29701" class="issue-link">#29701</a></td>
-                <td>[Good First Issue]: Support aten::items</td>
-                <td>Satvik-jain</td>
-                <td>49</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Satvik-jain requested assignment on 2026-03-30 12:22 UTC: '.take'. No further activity from the assignee in 49 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29709" class="issue-link">#29709</a></td>
-                <td>[Good First Issue]: Support aten::poisson</td>
-                <td>ktk-07</td>
-                <td>48</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">ktk-07 requested clarification on 2026-03-31 13:13 UTC but there has been no activity from the assignee for 48 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29725" class="issue-link">#29725</a></td>
-                <td>[Good First Issue]: Support prim::tolist</td>
-                <td>BrachaLeah1</td>
-                <td>44</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">BrachaLeah1 was assigned on 2025-10-27 10:56 UTC but there has been no activity from the assignee for 44 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/28395" class="issue-link">#28395</a></td>
-                <td>[Good First Issue]: Support aten::quantile</td>
-                <td>williamli-15</td>
-                <td>43</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">williamli-15 was assigned on 2026-02-26 but there has been no activity from the assignee for 43 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29696" class="issue-link">#29696</a></td>
-                <td>[Good First Issue]: Support aten::fractional_max_pool2d</td>
-                <td>Andy34G7</td>
-                <td>39</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Andy34G7 was assigned on 2026-03-21 07:26 UTC but there has been no activity from the assignee for 39 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29692" class="issue-link">#29692</a></td>
-                <td>[Good First Issue]: Support aten::embedding_renorm_</td>
-                <td>zjhmax777</td>
-                <td>38</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">zjhmax777 requested assignment on 2026-04-09 14:19 UTC: 'are you still work this issue ? if not ,please release it. thanks!', but the issue remains unassigned for 38 days with no further activity from the assignee.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/27715" class="issue-link">#27715</a></td>
-                <td>[Good First Issue] [ARM] [Debug Caps] : Implement register p...</td>
-                <td>Sujanian1304</td>
-                <td>11</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Sujanian1304 was assigned on 2026-02-18 17:26 UTC but there has been no activity from the assignee for 11 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/23746" class="issue-link">#23746</a></td>
-                <td>[Good First Issue]: Support aten::rrelu and aten::rrelu_ for...</td>
-                <td>zjhmax777</td>
-                <td>10</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">zjhmax777 was last active 10 days ago and there have been no recent requests for assignment.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29714" class="issue-link">#29714</a></td>
-                <td>[Good First Issue]: Support aten::set_</td>
-                <td>xikronz</td>
-                <td>6</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">xikronz requested assignment on 2026-03-23: 'hi @uvv-01, are you still working on this issue? if not I can definitely help out!' and was assigned. However, there has been no further activity from xikronz for 6 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/30247" class="issue-link">#30247</a></td>
-                <td>[Good First Issue] [RISCV64]: Implement CPU plugin just-in-t...</td>
-                <td>Quaant</td>
-                <td>2</td>
-                <td><span class="badge" style="background-color: #FFA500">Unassign</span></td>
-                <td class="reason">Quaant requested assignment on 2026-05-16 12:05 UTC: '.take'. No further activity from assignee in 2 days.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-        </table>
+    <div class="summary-card status-review">
+      <div class="number">16</div>
+      <div class="label">In Review</div>
     </div>
-
-    <div class="section">
-        <h2>🟣 Waiting for Maintainer (3)</h2>
-        <table>
-            <tr>
-                <th style="width: 60px">Issue</th>
-                <th>Title</th>
-                <th style="width: 120px">Assignee</th>
-                <th style="width: 80px">Days</th>
-                <th style="width: 80px">Action</th>
-                <th>Reason</th>
-                <th style="width: 150px">Linked PRs</th>
-            </tr>
-            
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29343" class="issue-link">#29343</a></td>
-                <td>[Good First Issue]: Support quantized::conv1d, quantized::li...</td>
-                <td>VaishnaviOnPC</td>
-                <td>95</td>
-                <td><span class="badge" style="background-color: #9932CC">Waiting (Maintainer)</span></td>
-                <td class="reason">Contributor @VaishnaviOnPC asked for a review on their Pull Request on 2026-02-11 18:27 UTC, but there have been no recent responses from the maintainer.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29699" class="issue-link">#29699</a></td>
-                <td>[Good First Issue]: Support aten::histc</td>
-                <td>toxicteddy00077</td>
-                <td>90</td>
-                <td><span class="badge" style="background-color: #9932CC">Waiting (Maintainer)</span></td>
-                <td class="reason">Contributor @toxicteddy00077 asked for help on 2026-02-17, waiting for maintainer response.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29733" class="issue-link">#29733</a></td>
-                <td>[Good First Issue]: Support quantized::linear_relu</td>
-                <td>samthakur587</td>
-                <td>58</td>
-                <td><span class="badge" style="background-color: #9932CC">Waiting (Maintainer)</span></td>
-                <td class="reason">Contributor @Hmm-1224 asked if the maintainer is active and if they can start working again. This indicates that the contributor is blocked and waiting for a response from the maintainer.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-        </table>
+    <div class="summary-card status-close">
+      <div class="number">1</div>
+      <div class="label">Close</div>
     </div>
+  </div>
 
-    <div class="section">
-        <h2>🔴 Recommend Close (1)</h2>
-        <table>
-            <tr>
-                <th style="width: 60px">Issue</th>
-                <th>Title</th>
-                <th style="width: 120px">Assignee</th>
-                <th style="width: 80px">Days</th>
-                <th style="width: 80px">Action</th>
-                <th>Reason</th>
-                <th style="width: 150px">Linked PRs</th>
-            </tr>
-            
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29630" class="issue-link">#29630</a></td>
-                <td>[Good First Issue]: Support request for aten::pop and aten::...</td>
-                <td>akibjawad</td>
-                <td>74</td>
-                <td><span class="badge" style="background-color: #DC143C">Close</span></td>
-                <td class="reason">This issue is officially closed by maintainer on 2026-03-05. The maintainer stated that everyone should leave this issue and it is officially closed.</td>
-                <td class="pr-list">—</td>
-            </tr>
+  <section>
+    <h2>🟡 Assignment Requested (10)</h2>
+    <table>
+      <tr>
+        <th>Issue</th><th>Title</th><th>Assignee</th><th>Days</th><th>Action</th><th>Reason</th><th>Linked PRs</th>
+      </tr>
+      <tr>
+        <td><a href="https://github.com/openvinotoolkit/openvino/issues/29694" class="issue-link">#29694</a></td>
+        <td>[Good First Issue]: Support aten::find</td>
+        <td>Ratish1</td>
+        <td>52</td>
+        <td><span class="badge badge-assign">Assign Requested</span></td>
+        <td class="reason">khevana08 requested assignment on 2026-03-27 10:49 UTC</td>
+        <td class="pr-list">—</td>
+      </tr>
+    </table>
+  </section>
 
-        </table>
-    </div>
-
-    <div class="section">
-        <h2>🟢 In Review (16)</h2>
-        <table>
-            <tr>
-                <th style="width: 60px">Issue</th>
-                <th>Title</th>
-                <th style="width: 120px">Assignee</th>
-                <th style="width: 80px">Days</th>
-                <th style="width: 80px">Action</th>
-                <th>Reason</th>
-                <th style="width: 150px">Linked PRs</th>
-            </tr>
-            
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29647" class="issue-link">#29647</a></td>
-                <td>[Good First Issue]: Support aten::cross_entropy_loss</td>
-                <td>ayushgoyal9715</td>
-                <td>148</td>
-                <td><span class="badge" style="background-color: #32CD32">In Review</span></td>
-                <td class="reason">PR #29511: Enable the support system for the list of operations in PyTorch Frontend. Status: waiting for review. Last activity: 148 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29700" class="issue-link">#29700</a></td>
-                <td>[Good First Issue]: Support aten::isin</td>
-                <td>devesh-047</td>
-                <td>122</td>
-                <td><span class="badge" style="background-color: #32CD32">In Review</span></td>
-                <td class="reason">PR #29700: 'Support aten::isin'. Status: Waiting for review. Last activity: 122 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29728" class="issue-link">#29728</a></td>
-                <td>[Good First Issue]: Support quantized::batch_norm2d</td>
-                <td>Vbhatt03</td>
-                <td>118</td>
-                <td><span class="badge" style="background-color: #32CD32">In Review</span></td>
-                <td class="reason">PR #33701: Support quantized::batch_norm2d. Status: Waiting for review. Last activity: 118 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29685" class="issue-link">#29685</a></td>
-                <td>[Good First Issue]: Support aten::_sparse_mm</td>
-                <td>goyaladitya05</td>
-                <td>116</td>
-                <td><span class="badge" style="background-color: #32CD32">In Review</span></td>
-                <td class="reason">PR #33708: Implemented support for aten::_sparse_mm using PtFrameworkNode fallback. Status: Waiting for review. Last activity: 116 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29730" class="issue-link">#29730</a></td>
-                <td>[Good First Issue]: Support quantized::conv1d_relu</td>
-                <td>Sujanian1304</td>
-                <td>110</td>
-                <td><span class="badge" style="background-color: #32CD32">In Review</span></td>
-                <td class="reason">PR #33840: Support quantized::conv1d_relu. Status: waiting for review. Last activity: 110 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29708" class="issue-link">#29708</a></td>
-                <td>[Good First Issue]: Support aten::percentFormat</td>
-                <td>Shekar-77</td>
-                <td>106</td>
-                <td><span class="badge" style="background-color: #32CD32">In Review</span></td>
-                <td class="reason">PR #1: Support aten::percentFormat. Status: Waiting for review. Last activity: 106 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/24241" class="issue-link">#24241</a></td>
-                <td>[Good First Issue]: Support LOG_LEVEL property in GPU plugin</td>
-                <td>Sujanian1304</td>
-                <td>105</td>
-                <td><span class="badge" style="background-color: #32CD32">In Review</span></td>
-                <td class="reason">PR #33628: Support LOG_LEVEL property in GPU plugin. Status: Waiting for review. Last activity: 105 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29711" class="issue-link">#29711</a></td>
-                <td>[Good First Issue]: Support aten::quantized_lstm</td>
-                <td>Advait2912</td>
-                <td>105</td>
-                <td><span class="badge" style="background-color: #32CD32">In Review</span></td>
-                <td class="reason">PR #123: 'Support aten::quantized_lstm'. Status: waiting for review. Last activity: 105 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/26680" class="issue-link">#26680</a></td>
-                <td>CacheManager: std::ofstream constructor error due to missing...</td>
-                <td>geeky33</td>
-                <td>103</td>
-                <td><span class="badge" style="background-color: #32CD32">In Review</span></td>
-                <td class="reason">PR #16323: 'Fix CacheManager std::ofstream constructor error'. Status: waiting for review. Last activity: 103 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/24649" class="issue-link">#24649</a></td>
-                <td>[Good First Issue]: Extend ONNX Frontend with `DeformConv` o...</td>
-                <td>Sujanian1304</td>
-                <td>92</td>
-                <td><span class="badge" style="background-color: #32CD32">In Review</span></td>
-                <td class="reason">PR #34132: 'Extend ONNX Frontend with DeformConv operator'. Status: Waiting for review. Last activity: 92 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/23245" class="issue-link">#23245</a></td>
-                <td>[Good First Issue][TF FE]: Support complex tensors for Slice...</td>
-                <td>daehyun99</td>
-                <td>90</td>
-                <td><span class="badge" style="background-color: #32CD32">In Review</span></td>
-                <td class="reason">PR #34160: Support complex tensors for Slice operations. Status: waiting for review. Last activity: 90 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/23556" class="issue-link">#23556</a></td>
-                <td>[Good First Issue]: [OP CONFORMANCE][TEMPLATE] Add test in o...</td>
-                <td>Udayscode</td>
-                <td>88</td>
-                <td><span class="badge" style="background-color: #32CD32">In Review</span></td>
-                <td class="reason">PR #34183: 'regarding this issue'. Status: waiting for review. Last activity: 88 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/23001" class="issue-link">#23001</a></td>
-                <td>[Feature Request]: Add clamp functionality to input.preproce...</td>
-                <td>newbhumika</td>
-                <td>74</td>
-                <td><span class="badge" style="background-color: #32CD32">In Review</span></td>
-                <td class="reason">PR #34511: Implement clamp functionality for the Python API. Status: Waiting for review. Last activity: 74 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/23553" class="issue-link">#23553</a></td>
-                <td>[Good First Issue]: [OP CONFORMANCE][TEMPLATE] Interpolate t...</td>
-                <td>ktk-07</td>
-                <td>52</td>
-                <td><span class="badge" style="background-color: #32CD32">In Review</span></td>
-                <td class="reason">PR #123: Clarification Needed TLDR: I found that Interpolate-11 linear_onnx conformance failure due to a... . Status: waiting for review. Last activity: 52 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29684" class="issue-link">#29684</a></td>
-                <td>[Good First Issue]: Support aten::_nested_tensor_from_mask</td>
-                <td>phaniratan1234</td>
-                <td>52</td>
-                <td><span class="badge" style="background-color: #32CD32">In Review</span></td>
-                <td class="reason">PR #34976: 'Support aten::_nested_tensor_from_mask'. Status: waiting for review. Last activity: 52 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29718" class="issue-link">#29718</a></td>
-                <td>[Good First Issue]: Support aten::values</td>
-                <td>ktk-07</td>
-                <td>52</td>
-                <td><span class="badge" style="background-color: #32CD32">In Review</span></td>
-                <td class="reason">PR #123: Support aten::values. Status: Waiting for review. Last activity: 52 days ago.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-        </table>
-    </div>
-
-    <div class="section">
-        <h2>🔵 Waiting for Contributor (3)</h2>
-        <table>
-            <tr>
-                <th style="width: 60px">Issue</th>
-                <th>Title</th>
-                <th style="width: 120px">Assignee</th>
-                <th style="width: 80px">Days</th>
-                <th style="width: 80px">Action</th>
-                <th>Reason</th>
-                <th style="width: 150px">Linked PRs</th>
-            </tr>
-            
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/29691" class="issue-link">#29691</a></td>
-                <td>[Good First Issue]: Support aten::cross_entropy_loss</td>
-                <td>PT-10</td>
-                <td>83</td>
-                <td><span class="badge" style="background-color: #4169E1">Waiting (Contributor)</span></td>
-                <td class="reason">PT-10 asked if they were still working on the issue and provided an update on their progress. They last updated the PR 83 days ago, and the maintainer is waiting for further input.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/24244" class="issue-link">#24244</a></td>
-                <td>[Good First Issue]: if operation is incorrectly reporting pr...</td>
-                <td>edwingao28</td>
-                <td>83</td>
-                <td><span class="badge" style="background-color: #4169E1">Waiting (Contributor)</span></td>
-                <td class="reason">Contributor @edwingao28 is working on this issue and replied to @ManoBharathi93 on 2026-02-24 09:08 UTC, stating they are almost at the end of testing and don't need help. No further activity has been observed since then.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-            <tr>
-                <td><a href="https://github.com/openvinotoolkit/openvino/issues/28526" class="issue-link">#28526</a></td>
-                <td>[Good First Issue]: Support aten::bincount</td>
-                <td>Lagmator22</td>
-                <td>44</td>
-                <td><span class="badge" style="background-color: #4169E1">Waiting (Contributor)</span></td>
-                <td class="reason">Lagmator22 requested assignment on 2026-03-04 and mentioned they were working on the issue. Since then, there has been no further activity from the assignee, and the issue remains open with no PRs linked. The assignee is likely waiting for feedback or assistance.</td>
-                <td class="pr-list">—</td>
-            </tr>
-
-        </table>
-    </div>
-
-    
-    <footer>
-        Powered by <a href="https://github.com/openvinotoolkit/openvino">OpenVINO</a> + Qwen2.5-7B on Intel Arc A770<br>
-        <a href="https://github.com/p-wysocki/gfi_manager">View on GitHub</a>
-    </footer>
+  <footer>
+    <p>Generated by OpenVINO Report System | <a href="#">View on GitHub</a></p>
+  </footer>
 </body>
 </html>
+```
